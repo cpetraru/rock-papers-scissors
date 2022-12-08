@@ -23,9 +23,14 @@
 // 5) if the player chooses paper and the computer chooses scissors, the computer wins
 // 6) if the player chooses scissors and the computer chooses rock, the computer wins
 // 7) if the player chooses scissors and the computer chooses paper, the player wins
-// create computerScores() function that takes two arguments: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
-// create playerScores() function that takes two arguments: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
-// create showComputerChoice() function that takes one argument: the computer choice and display it into console. The function is used to show the computer's choice in the previous functions.
+// create computerScores() function that takes two parameters: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
+// create playerScores() function that takes two parameters: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
+// create showComputerChoice() function that takes one parameter: the computer choice and display it into console. The function is used to show the computer's choice in the previous functions.
+// When computer wins, increment the computerScore by 1
+// When player wins, increment the playerScore by 1
+// create a function showScore() that shows the score of each player.
+// Create a game() function that nests a for loop.
+// Use the for loop to play 5 rounds. Once the round reaches an end, compare the scores. Who ever has the bigger score is delared the winner
 
 // ################# SOLUTION #################
 
@@ -35,6 +40,7 @@ const choices = ['rock', 'paper', 'scissors']
 // create playerScore and computerScore variables that hold the scores for both players. Initialize them with 0
 let playerScore = 0;
 let computerScore = 0;
+let rounds = 0;
 
 // create a function to assign the computer's option from the list of options. Do this by using math.random * 3 and then use it as an index. Then return the choice
 function getComputerChoice() {
@@ -47,7 +53,7 @@ function getComputerChoice() {
 };
 
 // create a playGame function that takes two parameters: playerChoice and computerChoice
-function playGame(playerChoice, computerChoice) {
+function playRound(playerChoice, computerChoice) {
     // store the playerChoice via an alert
     playerChoice = prompt("Please write down your choice between: rock, paper, scissors");
     // store the computerChoice using the getComputerChoice()
@@ -57,7 +63,8 @@ function playGame(playerChoice, computerChoice) {
     if (playerChoice == computerChoice) {
         getComputerChoice(computerChoice);
         alert(`It is a draw. You both chose ${playerChoice}!`);
-        playGame();
+        rounds++;
+        playRound();
     }
     // if the player chooses rock and computer chooses paper, the computer wins
     else if (playerChoice == 'rock' && computerChoice == 'paper') {
@@ -85,21 +92,58 @@ function playGame(playerChoice, computerChoice) {
     }
 }
 
+// Create a game() function that nests a for loop.
+function game() {
+    for (let i = 0; i <= 5; i++) {
+        if (rounds < 5) {
+            rounds++;
+            playRound();
+        } else if (rounds == 5) {
+            decideWinner();
+        }
+    }
+
+}
+
 // create computerScores() function that takes two arguments: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
 function computerScores(computerChoice, playerChoice) {
     showComputerChoice(computerChoice);
     console.log(`Computer wins because ${computerChoice} beats ${playerChoice}.`);
-    playGame();
+    // When computer wins, increment the computerScore by 1
+    computerScore++;
+    // show the score
+    showScore();
 }
 
 // create playerScores() function that takes two arguments: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
 function playerScores(playerChoice, computerChoice) {
     showComputerChoice(computerChoice);
     console.log(`Player wins because ${playerChoice} beats ${computerChoice}`);
-    playGame();
+    // When player wins, increment the playerScore by 1
+    playerScore++;
+    // show the score
+    showScore();
 }
 
 // create showComputerChoice() function that takes one argument: the computer choice and display it into console. The function is used to show the computer's choice in the previous functions.
 function showComputerChoice(computerChoice) {
     console.log(`The computer chose ${computerChoice}`);
 }
+
+// create a function showScore() that shows the score of each player.
+function showScore() {
+    console.log(`Your score: ${playerScore} \n Computer score: ${computerScore}`);
+}
+
+function decideWinner() {
+    if (playerScore === computerScore) {
+        console.log(`It's a tie!`);
+    } else if ((playerScore > computerScore)) {
+        console.log(`You win! Your score is higher than the computer's score.`)
+    }
+    else {
+        console.log(`You lose! Your score is lower than the computer's score :()`);
+    }
+}
+
+game();
