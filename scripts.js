@@ -10,8 +10,8 @@
 // ################# ALGORITHM #################
 
 // create an array with the three options: rock, paper, scissors
+// create playerScore and computerScore variables that hold the scores for both players. Initialize them with 0
 // create a function to assign the computer's option from the list of options. Do this by using math.random * 3 and then use it as an index. Then return the choice
-
 // Based on the math.random * 3 result, select the corresponding index from the array
 // create a playGame function that takes two parameters: playerChoice and computerChoice
 // store the playerChoice via an alert
@@ -23,12 +23,18 @@
 // 5) if the player chooses paper and the computer chooses scissors, the computer wins
 // 6) if the player chooses scissors and the computer chooses rock, the computer wins
 // 7) if the player chooses scissors and the computer chooses paper, the player wins
-
+// create computerScores() function that takes two arguments: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
+// create playerScores() function that takes two arguments: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
+// create showComputerChoice() function that takes one argument: the computer choice and display it into console. The function is used to show the computer's choice in the previous functions.
 
 // ################# SOLUTION #################
 
 // create an array with the three options: rock, paper, scissors
 const choices = ['rock', 'paper', 'scissors']
+
+// create playerScore and computerScore variables that hold the scores for both players. Initialize them with 0
+let playerScore = 0;
+let computerScore = 0;
 
 // create a function to assign the computer's option from the list of options. Do this by using math.random * 3 and then use it as an index. Then return the choice
 function getComputerChoice() {
@@ -79,18 +85,21 @@ function playGame(playerChoice, computerChoice) {
     }
 }
 
+// create computerScores() function that takes two arguments: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
 function computerScores(computerChoice, playerChoice) {
     showComputerChoice(computerChoice);
     console.log(`Computer wins because ${computerChoice} beats ${playerChoice}.`);
     playGame();
 }
 
+// create playerScores() function that takes two arguments: the player's choice and computer's choice. Take the arguments and console.log a message. Also increment the score.
 function playerScores(playerChoice, computerChoice) {
     showComputerChoice(computerChoice);
     console.log(`Player wins because ${playerChoice} beats ${computerChoice}`);
     playGame();
 }
 
+// create showComputerChoice() function that takes one argument: the computer choice and display it into console. The function is used to show the computer's choice in the previous functions.
 function showComputerChoice(computerChoice) {
     console.log(`The computer chose ${computerChoice}`);
 }
