@@ -1,0 +1,34 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+a {
+  padding: 25px;
+  border-radius: 15px;
+  font-weight: 550;
+  cursor: pointer;
+}
+
+a#rock {
+  background-color: rgb(180, 74, 32);
+  color: white;
+}
+
+a#paper {
+  background-color: rgb(245, 200, 141);
+}
+
+a#scissors {
+  background-color: rgb(161, 161, 161);
+  color: azure;
+}
