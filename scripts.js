@@ -9,15 +9,16 @@ const currentPlayerScore = document.querySelector("#playerScore");
 const currentComputerScore = document.querySelector("#computerScore");
 
 // select the draw div
-const drawDiv = document.querySelector(".draw");
-let drawText = document.createElement("p");
-let isDraw;
+const resultDiv = document.querySelector(".result");
+let resultText = document.createElement("p");
+let isDraw = false;
+let isDone = false;
 
 // create playerScore and computerScore variables that hold the scores for both players. Initialize them with 0
 let playerScore = 0;
 let computerScore = 0;
 // create a rounds and playerChoice variable. Initialize rounds with 0
-let rounds = 0;
+// let rounds = 0;
 let playerChoice;
 
 // create a for loop to store the playerChoice and run the playRound function when a button is played
@@ -26,15 +27,12 @@ for (let i = 0; i < playerButtons.length; i++) {
     playerChoice = playerButtons[i].innerText;
     isDraw = false;
     setDraw();
-    rounds++;
-    if (rounds < 5) {
-      alert(`${rounds} rounds played. ${5 - rounds} rounds remaining`);
-      playRound(playerChoice);
-    } else if (rounds === 5) {
+    playRound(playerChoice);
+    if (playerScore === 5 || computerScore === 5) {
       decideWinner();
+      disableButtons();
     }
   });
-  playRound(playerChoice);
 }
 
 // create a function to assign the computer's option from the list of options. Do this by using math.random * 3 and then use it as an index. Then return the choice
@@ -121,21 +119,29 @@ function showScore() {
 }
 
 function decideWinner() {
-  if (playerScore === computerScore) {
-    console.log(`It's a tie!`);
-  } else if (playerScore > computerScore) {
-    console.log(`You win! Your score is higher than the computer's score.`);
+  if (playerScore > computerScore) {
+    resultText.innerText =
+      "You win! Your score is higher than the computer's score.";
+    resultDiv.appendChild(resultText);
   } else {
-    console.log(`You lose! Your score is lower than the computer's score :()`);
+    resultText.innerText =
+      "You lose! Your score is lower than the computer's score :(";
+    resultDiv.appendChild(resultText);
   }
 }
 
 function setDraw() {
   if (isDraw === true) {
-    drawText.innerText = `It's a draw. You both chose ${playerChoice}`;
-    drawDiv.appendChild(drawText);
+    resultText.innerText = `It's a draw. You both chose ${playerChoice}`;
+    resultDiv.appendChild(resultText);
   } else if (isDraw === false) {
-    drawText.innerText = "";
-    drawDiv.appendChild(drawText);
+    resultText.innerText = "";
+    resultDiv.appendChild(resultText);
   }
+}
+
+function disableButtons() {
+  playerButtons.forEach((btn) => {
+    btn.disabled = true;
+  });
 }
