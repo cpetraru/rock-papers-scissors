@@ -35,18 +35,30 @@
 
 // create an array with the three options: rock, paper, scissors
 const choices = ["Rock", "Paper", "Scissors"];
+// select the playerButtons nodelist
 const playerButtons = document.querySelectorAll(".btn");
+// select the player and computer scores
+const currentPlayerScore = document.querySelector("#playerScore");
+const currentComputerScore = document.querySelector("#computerScore");
+
+// select the draw div
+const drawDiv = document.querySelector(".draw");
+let drawText = document.createElement("p");
+let isDraw;
 
 // create playerScore and computerScore variables that hold the scores for both players. Initialize them with 0
 let playerScore = 0;
 let computerScore = 0;
+// create a rounds and playerChoice variable. Initialize rounds with 0
 let rounds = 0;
 let playerChoice;
 
+// create a for loop to store the playerChoice and run the playRound function when a button is played
 for (let i = 0; i < playerButtons.length; i++) {
   playerButtons[i].addEventListener("click", () => {
     playerChoice = playerButtons[i].innerText;
-    console.log(playerButtons[i].innerText);
+    isDraw = false;
+    setDraw();
     playRound(playerChoice);
   });
 }
@@ -63,17 +75,15 @@ function getComputerChoice() {
 
 // create a playGame function that takes two parameters: playerChoice and computerChoice
 function playRound(playerChoice, computerChoice) {
-  //   // store the playerChoice via an alert
-  //   playerChoice = prompt(
-  //     "Please write down your choice between: rock, paper, scissors"
-  //   );
   // store the computerChoice using the getComputerChoice()
   computerChoice = getComputerChoice();
   // create an if else if statement to compare the user's answer to the computer's guess
   // if the player's guess matches the computer's guess, it is a draw and ask the user to input another guess via another prompt()
   if (playerChoice == computerChoice) {
     getComputerChoice(computerChoice);
-    alert(`It is a draw. You both chose ${playerChoice}!`);
+    console.log("Draw");
+    isDraw = true;
+    setDraw();
     rounds++;
     playRound();
   }
@@ -105,14 +115,14 @@ function playRound(playerChoice, computerChoice) {
 
 // Create a game() function that nests a for loop.
 function game() {
-  //   for (let i = 0; i <= 5; i++) {
-  //     if (rounds < 5) {
-  //       rounds++;
-  //       playRound();
-  //     } else if (rounds == 5) {
-  //       decideWinner();
-  //     }
-  //   }
+  for (let i = 0; i <= 5; i++) {
+    if (rounds < 5) {
+      rounds++;
+      playRound();
+    } else if (rounds == 5) {
+      decideWinner();
+    }
+  }
   playRound();
 }
 
@@ -122,6 +132,8 @@ function computerScores(computerChoice, playerChoice) {
   console.log(`Computer wins because ${computerChoice} beats ${playerChoice}.`);
   // When computer wins, increment the computerScore by 1
   computerScore++;
+  // display the score
+  currentComputerScore.textContent = computerScore;
   // show the score
   showScore();
 }
@@ -132,6 +144,8 @@ function playerScores(playerChoice, computerChoice) {
   console.log(`Player wins because ${playerChoice} beats ${computerChoice}`);
   // When player wins, increment the playerScore by 1
   playerScore++;
+  // display the score
+  currentPlayerScore.textContent = playerScore;
   // show the score
   showScore();
 }
@@ -156,4 +170,12 @@ function decideWinner() {
   }
 }
 
-// game();
+function setDraw() {
+  if (isDraw === true) {
+    drawText.innerText = `It's a draw. You both chose ${playerChoice}`;
+    drawDiv.appendChild(drawText);
+  } else if (isDraw === false) {
+    drawText.innerText = "";
+    drawDiv.appendChild(drawText);
+  }
+}

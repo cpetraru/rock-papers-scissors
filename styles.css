@@ -6,10 +6,29 @@ body {
   justify-content: center;
 }
 
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  gap: 5px;
 }
 
 a {
@@ -31,4 +50,52 @@ a#paper {
 a#scissors {
   background-color: rgb(161, 161, 161);
   color: azure;
+}
+
+.score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.scoreTitle {
+  margin-top: 15px;
+}
+
+.scores {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+
+.playerScore,
+.computerScore {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  height: 100px;
+  width: 150px;
+  padding: 10px;
+  align-items: center;
+}
+
+#playerScore,
+#computerScore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.draw {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 25px;
+  font-weight: 600;
+  font-size: 25px;
 }
